@@ -2,46 +2,174 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ace बादशाह · Support</title>
 <meta name="description" content="Ace बादशाह: Teen Patti, Call Break and Marriage card games. Help, rules and contact.">
+<meta name="theme-color" content="#1a0a10">
+<link rel="icon" href="emblem.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #fbf8f1; --ink: #1d1a14; --muted: #5c574c; --line: #e6dfcf; --accent: #8a1c1c; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #0e1612; --ink: #efe9dc; --muted: #a9a394; --line: #26332c; --accent: #e8c468; } }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 720px; margin: 0 auto; padding: 32px 18px 64px; }
-  h1 { font-size: 2rem; margin: 0; } h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; color: var(--accent); }
-  .muted { color: var(--muted); } a { color: var(--accent); }
-  dt { font-weight: 700; margin-top: 1rem; } dd { margin: .25rem 0 0; }
+  :root {
+    --bg: #14070c; --bg2: #2a0d18; --felt: #0f3d2b; --felt-hi: #1b6b47;
+    --ink: #f3ecdc; --muted: #c4b8a2; --gold: #e8c468; --gold-hi: #ffe39a; --gold-lo: #a8823a;
+    --panel: rgba(18, 10, 14, .72); --line: rgba(232, 196, 104, .22); --red: #e04a5f;
+    --serif: "Cinzel", Georgia, "Times New Roman", serif; --ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+  body {
+    margin: 0; color: var(--ink); font: 16px/1.65 var(--ui); background-color: var(--bg);
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% 0%, rgba(160, 30, 50, .45), transparent 70%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(15, 61, 43, .55), transparent 70%),
+      linear-gradient(180deg, var(--bg2), var(--bg) 55%);
+    background-attachment: fixed; min-height: 100vh;
+  }
+  /* faint card-suit pattern over the whole page */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .05; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%23e8c468' font-family='serif' font-size='22'%3E%3Ctext x='10' y='34'%3E%E2%99%A0%3C/text%3E%3Ctext x='70' y='34'%3E%E2%99%A5%3C/text%3E%3Ctext x='40' y='94'%3E%E2%99%A6%3C/text%3E%3Ctext x='100' y='94'%3E%E2%99%A3%3C/text%3E%3C/g%3E%3C/svg%3E");
+  }
+  main { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: max(28px, env(safe-area-inset-top)) 16px 56px; }
+  a { color: var(--gold-hi); text-underline-offset: 3px; }
+  a:hover { color: #fff; }
+  :focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; border-radius: 6px; }
+
+  /* top: the emblem, the title and the date chip */
+  .hero { text-align: center; padding: 8px 0 18px; }
+  .hero img { width: 148px; height: auto; filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .6)) drop-shadow(0 0 30px rgba(232, 196, 104, .18)); animation: float 6s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-5px); } }
+  .hero h1 { margin: 10px 0 6px; font: 800 clamp(1.9rem, 6vw, 2.6rem)/1.15 var(--serif); letter-spacing: .06em;
+    background: linear-gradient(180deg, var(--gold-hi), var(--gold) 55%, var(--gold-lo)); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 2px 18px rgba(232, 196, 104, .15); }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 999px; font-size: .85rem; font-weight: 600; color: var(--muted);
+    background: rgba(0, 0, 0, .35); box-shadow: inset 0 0 0 1px var(--line); }
+  .chip b { color: var(--gold); font-weight: 800; }
+  .lede { margin: 18px auto 0; max-width: 620px; color: var(--muted); text-align: center; }
+
+  /* the jump links */
+  nav.jump { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 22px 0 6px; }
+  nav.jump a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; text-decoration: none; font-size: .85rem; font-weight: 600; color: var(--ink);
+    background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px var(--line); transition: background .15s, box-shadow .15s; }
+  nav.jump a:hover { background: rgba(232, 196, 104, .12); box-shadow: inset 0 0 0 1px var(--gold); color: var(--gold-hi); }
+
+  /* the short version: four tiles on a felt table */
+  .table { margin: 22px 0 8px; padding: 20px 16px; border-radius: 28px; position: relative;
+    background: radial-gradient(ellipse at 50% 30%, var(--felt-hi), var(--felt) 70%);
+    box-shadow: 0 0 0 6px #4a2a12, 0 0 0 8px var(--gold-lo), 0 18px 40px rgba(0, 0, 0, .55), inset 0 0 50px rgba(0, 0, 0, .45); }
+  .table h2 { margin: 0 0 14px; text-align: center; color: var(--gold-hi); }
+  .tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .tiles li { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 16px; background: rgba(5, 20, 14, .55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); font-size: .95rem; line-height: 1.5; }
+  .suit { flex: none; display: grid; place-items: center; width: 38px; height: 50px; border-radius: 7px; background: #fbf7ee; color: #1a1a22; font: 800 22px/1 var(--serif); box-shadow: 0 3px 8px rgba(0, 0, 0, .45); transform: rotate(-4deg); }
+  .suit.r { color: #c81e3a; }
+
+  /* the policy sections */
+  section { margin: 18px 0; padding: 20px 20px 8px; border-radius: 20px; background: var(--panel); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 0 0 1px var(--line), 0 12px 30px rgba(0, 0, 0, .35); scroll-margin-top: 16px; }
+  h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font: 800 1.15rem/1.3 var(--serif); letter-spacing: .04em; color: var(--gold); }
+  h2 .s { font-size: 1rem; color: var(--gold-lo); }
+  h2 .s.r { color: var(--red); }
+  p, ul { margin: 0 0 14px; }
+  ul { padding-left: 1.2rem; }
+  li { margin: 6px 0; }
+  li::marker { color: var(--gold); }
+  b { color: #fff; }
+
+  .data { width: 100%; border-collapse: separate; border-spacing: 0; margin: 4px 0 14px; font-size: .92rem; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+  .data th { text-align: left; padding: 10px 12px; font: 800 .8rem var(--serif); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-hi); background: rgba(232, 196, 104, .1); }
+  .data td { vertical-align: top; padding: 10px 12px; border-top: 1px solid rgba(255, 255, 255, .07); }
+  .data td:first-child { color: #fff; font-weight: 600; width: 46%; }
+  .data tr:nth-child(odd) td { background: rgba(255, 255, 255, .025); }
+  @media (max-width: 520px) {
+    .tiles { grid-template-columns: 1fr; }
+    .data, .data tbody, .data tr, .data td { display: block; width: 100% !important; }
+    .data tr:first-child { display: none; }
+    .data tr + tr { border-top: 1px solid var(--line); }
+    .data td { border: 0; padding: 4px 12px; } .data td:first-child { padding-top: 12px; } .data td:last-child { padding-bottom: 12px; color: var(--muted); }
+  }
+
+  .note { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; margin: 0 0 14px; border-radius: 14px; background: rgba(224, 74, 95, .1); box-shadow: inset 0 0 0 1px rgba(224, 74, 95, .35); }
+  .note .ico { flex: none; font: 800 .75rem var(--ui); padding: 3px 7px; border-radius: 6px; background: var(--red); color: #fff; letter-spacing: .04em; }
+
+  /* the buttons at the bottom */
+  .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 28px 0 10px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px; text-decoration: none; font: 800 .95rem var(--ui); letter-spacing: .06em; text-transform: uppercase;
+    transition: transform .12s cubic-bezier(.2, .8, .2, 1), filter .12s; }
+  .btn:active { transform: translateY(2px) scale(.98); }
+  .btn.gold { color: #2a1606; background: linear-gradient(180deg, var(--gold-hi), var(--gold) 50%, #c99a3e); box-shadow: 0 4px 0 #8a6326, 0 10px 22px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .6); }
+  .btn.green { color: #fff; background: linear-gradient(180deg, #5ee08a, #24a85a 55%, #1a8a48); box-shadow: 0 4px 0 #11602f, 0 10px 22px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .45); }
+  .btn:hover { filter: brightness(1.07); color: inherit; }
+  .btn.green:hover { color: #fff; }
+  footer { text-align: center; color: var(--muted); font-size: .85rem; }
+  footer .suits { letter-spacing: .5em; color: var(--gold-lo); margin-bottom: 6px; }
+  footer .suits .r { color: var(--red); }
+
+  /* support page: the three games and the questions */
+  .games { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .game { padding: 14px 10px 12px; border-radius: 16px; text-align: center; background: rgba(5, 20, 14, .55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+  .game .fan { display: flex; justify-content: center; margin-bottom: 8px; }
+  .game .fan .suit { margin: 0 -6px; } .game .fan .suit:nth-child(1) { transform: rotate(-10deg); } .game .fan .suit:nth-child(2) { transform: translateY(-4px); z-index: 1; } .game .fan .suit:nth-child(3) { transform: rotate(10deg); }
+  .game b { display: block; font: 800 1rem var(--serif); letter-spacing: .05em; color: var(--gold-hi); }
+  .game small { display: block; color: var(--muted); font-size: .8rem; }
+  .faq details { border-radius: 14px; background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); margin: 0 0 10px; }
+  .faq summary { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 10px 14px; cursor: pointer; list-style: none; font-weight: 700; color: #fff; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; margin-left: auto; flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; font: 800 1rem var(--ui); color: var(--gold); box-shadow: inset 0 0 0 1px var(--line); transition: transform .2s cubic-bezier(.2, .8, .2, 1); }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq summary .s { flex: none; color: var(--gold-lo); } .faq summary .s.r { color: var(--red); }
+  .faq details p { margin: 0; padding: 0 14px 14px 38px; color: var(--muted); }
+  .hero .chip { display: inline-block; max-width: 100%; text-align: center; line-height: 1.5; }
+  @media (max-width: 520px) { .games { grid-template-columns: 1fr; } .game { display: flex; align-items: center; gap: 14px; text-align: left; } .game .fan { margin: 0 6px 0 4px; } }
 </style>
 </head>
 <body>
 <main>
-<h1>Ace बादशाह</h1>
-<p class="muted">बाउन्न पत्तीको त्रिपन्न खेल · Teen Patti, Call Break and Marriage</p>
+  <header class="hero">
+    <img src="emblem.webp" alt="Ace बादशाह" width="440" height="434">
+    <h1>Ace बादशाह</h1>
+    <span class="chip">बाउन्न पत्तीको त्रिपन्न खेल · <b>Teen Patti, Call Break and Marriage</b></span>
+    <p class="lede">Play the card games of Nepal and India against friendly computer rivals, anywhere, with play chips only. There's also a Marriage score calculator for your real games with friends.</p>
+  </header>
 
-<p>Play the card games of Nepal and India against friendly computer rivals, anywhere, with play chips only. There's also a Marriage score calculator for your real games with friends.</p>
+  <nav class="jump" aria-label="Sections">
+    <a href="#contact">Contact</a><a href="#questions">Questions</a><a href="privacy.html">Privacy policy</a>
+  </nav>
 
-<h2>Contact</h2>
-<p>Found a bug or have an idea? Email <a href="mailto:hello@aama-app.com">hello@aama-app.com</a>. Please include your phone model and what happened. A screenshot helps a lot.</p>
+  <div class="table" role="region" aria-label="The games">
+    <div class="games">
+      <div class="game"><div class="fan" aria-hidden="true"><span class="suit">A</span><span class="suit r">A</span><span class="suit r">A</span></div><div><b>Teen Patti</b><small>तीन पत्ती</small></div></div>
+      <div class="game"><div class="fan" aria-hidden="true"><span class="suit">K</span><span class="suit">♠</span><span class="suit r">Q</span></div><div><b>Call Break</b><small>कल ब्रेक</small></div></div>
+      <div class="game"><div class="fan" aria-hidden="true"><span class="suit r">K</span><span class="suit r">♥</span><span class="suit r">Q</span></div><div><b>Marriage</b><small>म्यारिज</small></div></div>
+    </div>
+  </div>
 
-<h2>Questions</h2>
-<dl>
-  <dt>Can I win or buy real money?</dt>
-  <dd>No. Chips are play money only and have no value outside the game. Nothing can be bought, sold or cashed out.</dd>
-  <dt>I ran out of chips.</dt>
-  <dd>Tap the <b>+</b> next to your chips: collect the daily bonus, take the free refill when you are low, or watch a short ad for free chips.</dd>
-  <dt>Why did I lose chips when I came back?</dt>
-  <dd>Leaving a Call Break game or Marriage deal before it ends counts as a loss, as at a real table.</dd>
-  <dt>How do I change my character, sound or vibration?</dt>
-  <dd>Open Settings (the gear at the top right of the home screen).</dd>
-  <dt>How do I change my ad choices?</dt>
-  <dd>See the <a href="privacy.html">privacy policy</a>. On iPhone: Settings → Privacy &amp; Security → Tracking. In the EU and UK: the app's Settings → "Ad privacy choices".</dd>
-  <dt>Does it work offline?</dt>
-  <dd>Yes. Games are played against computer rivals on your phone. Ads need a connection, the game does not.</dd>
-</dl>
+  <section id="contact">
+    <h2><span class="s" aria-hidden="true">♠</span>Contact</h2>
+    <p>Found a bug or have an idea? Email <a href="mailto:hello@aama-app.com">hello@aama-app.com</a>. Please include your phone model and what happened. A screenshot helps a lot.</p>
+  </section>
 
-<p><a href="privacy.html">Privacy policy</a></p>
+  <section id="questions" class="faq">
+    <h2><span class="s r" aria-hidden="true">♥</span>Questions</h2>
+    <details><summary><span class="s" aria-hidden="true">♠</span>Can I win or buy real money?</summary><p>No. Chips are play money only and have no value outside the game. Nothing can be bought, sold or cashed out.</p></details>
+    <details><summary><span class="s r" aria-hidden="true">♥</span>I ran out of chips.</summary><p>Tap the <b>+</b> next to your chips: collect the daily bonus, take the free refill when you are low, or watch a short ad for free chips.</p></details>
+    <details><summary><span class="s r" aria-hidden="true">♦</span>Why did I lose chips when I came back?</summary><p>Leaving a Call Break game or Marriage deal before it ends counts as a loss, as at a real table.</p></details>
+    <details><summary><span class="s" aria-hidden="true">♣</span>How do I change my character, sound or vibration?</summary><p>Open Settings (the gear at the top right of the home screen).</p></details>
+    <details><summary><span class="s" aria-hidden="true">♠</span>How do I change my ad choices?</summary><p>See the <a href="privacy.html">privacy policy</a>. On iPhone: Settings → Privacy &amp; Security → Tracking. In the EU and UK: the app's Settings → "Ad privacy choices".</p></details>
+    <details><summary><span class="s r" aria-hidden="true">♥</span>Does it work offline?</summary><p>Yes. Games are played against computer rivals on your phone. Ads need a connection, the game does not.</p></details>
+  </section>
+
+  <div class="actions">
+    <a class="btn gold" href="mailto:hello@aama-app.com">Email us</a>
+    <a class="btn green" href="privacy.html">Privacy policy</a>
+  </div>
+
+  <footer>
+    <div class="suits" aria-hidden="true">♠ <span class="r">♥ ♦</span> ♣</div>
+    Play chips only · No real money or prizes
+  </footer>
 </main>
 </body>
 </html>
